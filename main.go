@@ -28,13 +28,13 @@ func main() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/process", processHandler)
 	http.HandleFunc("/success", successHandler)
-	http.HandleFunc("/pokemon", listpokemonHandler)
+	http.HandleFunc("/pokemon", listPokemonHandler)
 
 	fmt.Println("Server is running at http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
 
-func listpokemonHandler(w http.ResponseWriter, r *http.Request) {
+func listPokemonHandler(w http.ResponseWriter, r *http.Request) {
 
 	url := "https://pokeapi.co/api/v2/pokemon?limit=100&offset=0"
 
