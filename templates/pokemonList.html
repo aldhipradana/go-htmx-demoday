@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon List</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div id="main" class="w-full overflow-auto max-w-lg bg-white p-6 rounded-lg shadow-md " style="max-height: 75vh;">
+        <h1 class="text-3xl font-bold mb-6">Pokemon List</h1>
+        <!-- Render pokemonList.html here -->
+        <div id="pokemon-section">
+            <ul hx-get="/pokemon" hx-trigger="once" class=" overflow-y-auto">
+                {{range .Results}}
+                    {{ if eq .Name "bulbasaur"}} 
+                        <li class="mb-2 list-none">
+                            <div class="flex items-center">
+                                <div>
+                                    <p class="font-semibold uppercase text-lg">{{.Name}}</p>
+                                    <a href="{{.URL}}" target="_blank" class="text-blue-800 hover:underline">View on PokéAPI</a>
+                                </div>
+                            </div>
+                        </li>
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

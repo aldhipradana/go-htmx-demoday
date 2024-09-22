@@ -1,0 +1,25 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div id="main" class="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-6">Register a Student</h1>
+
+        <!-- Render form.html here -->
+        <div id="form-section">
+            {{ template "form.html" . }}
+        </div>
+
+        <div id="content" class="mt-6">
+            <p class="text-gray-500">This section will update dynamically based on form submissions.</p>
+        </div>
+    </div>
+</body>
+</html>
