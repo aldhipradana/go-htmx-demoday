@@ -10,6 +10,8 @@ import (
 
 var tmpl *template.Template
 
+var students []Student
+
 type PokemonResponse struct {
 	Count    int    `json:"count"`
 	Next     string `json:"next"`
@@ -20,18 +22,46 @@ type PokemonResponse struct {
 	} `json:"results"`
 }
 
+type Student struct {
+	Name      string
+	Email     string
+	StudentID string
+}
+
 func main() {
+	students = append(students, Student{Name: "John Doe", Email: "johndoe@email.com", StudentID: "000001"})
+
 	// Parse all templates in the 'templates' directory
 	tmpl = template.Must(template.ParseGlob("templates/*.html"))
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	registerRoutes()
+
+	fmt.Println("Server is running at http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
+}
+
+func registerRoutes() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/process", processHandler)
 	http.HandleFunc("/success", successHandler)
 	http.HandleFunc("/pokemon", listPokemonHandler)
+	http.HandleFunc("/students", listStudentsHandler)
+}
 
-	fmt.Println("Server is running at http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+func listStudentsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Students:", students)
+	data := struct {
+		Data []Student
+	}{
+		Data: students,
+	}
+
+	err := tmpl.ExecuteTemplate(w, "studentList.html", data)
+	if err != nil {
+		http.Error(w, "Error loading template", http.StatusInternalServerError)
+	}
 }
 
 func listPokemonHandler(w http.ResponseWriter, r *http.Request) {
@@ -83,6 +113,8 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
 	email := r.FormValue("email")
 	studentId := r.FormValue("studentId")
+
+	students = append(students, Student{Name: name, Email: email, StudentID: studentId})
 
 	// Redirect to success page with registration details
 	http.Redirect(w, r, fmt.Sprintf("/success?name=%s&email=%s&studentId=%s", name, email, studentId), http.StatusSeeOther)

@@ -10,9 +10,10 @@
 <body class="bg-gray-100 h-screen flex items-center justify-center">
     <div id="main" class="w-full overflow-auto max-w-lg bg-white p-6 rounded-lg shadow-md " style="max-height: 75vh;">
         <h1 class="text-3xl font-bold mb-6">Pokemon List</h1>
-        <!-- Render pokemonList.html here -->
         <div id="pokemon-section">
-            <ul hx-get="/pokemon" hx-trigger="once" class=" overflow-y-auto">
+            <ul hx-get="/pokemon" 
+                hx-trigger="once" 
+                class=" overflow-y-auto">
                 {{range .Results}}
                     {{ if eq .Name "bulbasaur"}} 
                         <li class="mb-2 list-none">

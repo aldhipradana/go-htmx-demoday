@@ -1,6 +1,10 @@
 <!-- templates/form.html -->
 <h2 class="text-2xl font-bold mb-4">Student Registration Form</h2>
-<form hx-post="/process" hx-target="#main" hx-swap="outerHTML" class="space-y-4 bg-white p-6 rounded-lg shadow-md">
+<form 
+    hx-post="/process" 
+    hx-target="#main" 
+    hx-swap="outerHTML" 
+    class="space-y-4 bg-white p-6 rounded-lg shadow-md">
     <div>
         <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
         <input type="text" id="name" name="name" required class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">

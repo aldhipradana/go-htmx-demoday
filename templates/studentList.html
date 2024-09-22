@@ -1,0 +1,20 @@
+<!-- templates/studentList.html -->
+<div id="main" class="w-full max-w-7xl bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Student List</h2>
+    <div id="student-section">
+        <ul hx-get="/students" 
+            hx-trigger="once" 
+            class=" overflow-y-auto grid gap-3">
+            {{range .Data}}
+                <li class="mb-2 list-none grid grid-flow-col grid-cols-3 gap-4">
+                    <p class="font-semibold uppercase text-lg">{{.StudentID}}</p>
+                    <p class="font-semibold uppercase text-lg">{{.Name}}</p>
+                    <a href="to:{{.Email}}" target="_blank" class="font-semibold uppercase text-lg text-blue-800 hover:underline">{{.Email}}</a>
+                </li>
+            {{end}}
+        </ul>
+
+        <!-- back button -->
+        <a href="/" class="mt-6 inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Back</a>
+    </div>
+</div>
